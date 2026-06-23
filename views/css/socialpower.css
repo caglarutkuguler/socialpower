@@ -1,0 +1,19 @@
+.cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+* html .cf { zoom: 0; }
+*:first-child+html .cf { zoom: 1; }
+
+.text p, .text li { font-size: 1em; line-height: 1.5em; margin: 0 0 0.5em 0; }
+.text li { margin: 0 0 0.25em 0; }
+
+.vhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+.social-buttons { display: block; list-style: none; padding: 0; margin-top:20px; margin-bottom:10px;}
+.social-buttons > li { display: block; margin: 0; padding: 5px; float: left; }
+.social-top { display: block; margin-left: 10px ; margin-right: auto ;clear:both; height:100%;}
+.social-footer { display: block; margin-left: auto ; margin-right: auto ;}
+.social-left { display: block; margin-left: auto ; margin-right: auto ;width: 100% ;}
+.social-buttons-left { display: block; list-style: none; padding: 0; margin-top:0px; margin-bottom:0px;}
+.social-buttons-left > li { display: block; margin: 0; padding: 4px; float: left; }
+.social-buttons-right { display: block; list-style: none; padding: 0; margin-top:15px; margin-bottom:0px;}
+.social-buttons-right > li { display: block; margin: 0; padding: 3px; float: left; }
+.social-right { display: block; margin-left: auto ; margin-right: auto ;width: 430px ;}
