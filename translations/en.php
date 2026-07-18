@@ -18,7 +18,10 @@ $_MODULE['<{socialpower}prestashop>socialpower_5a95a425f74314a96f13a2f136992178'
 $_MODULE['<{socialpower}prestashop>socialpower_6d6db52799620de23c1e87d00abde8c4'] = 'Copied!';
 $_MODULE['<{socialpower}prestashop>socialpower_9a7e58ee13cb727cb7c4acc68f4cafe5'] = 'Settings saved.';
 $_MODULE['<{socialpower}prestashop>socialpower_9139ec6f0890e320c49fb778a7a2e3b5'] = 'Networks';
-$_MODULE['<{socialpower}prestashop>socialpower_53ea61f665d02583b8779f9e4789b79c'] = 'Choose which share buttons appear. "Copy link" copies the page URL; "Native share" opens the built-in share sheet on the phone and only shows on supported mobile devices.';
+$_MODULE['<{socialpower}prestashop>socialpower_308828dcc4010b637b5b6e0f592d22b9'] = 'Appearance and placement';
+$_MODULE['<{socialpower}prestashop>socialpower_3919b2d578dba44c706e36dd24eca1f1'] = 'Native share (mobile)';
+$_MODULE['<{socialpower}prestashop>socialpower_d6b0659d2343e14c5c87b2b27960f801'] = 'Copies the page address to the clipboard.';
+$_MODULE['<{socialpower}prestashop>socialpower_76d658eedba92d71d6a34e44c7505e96'] = 'Opens the built-in share sheet. Only appears on supported mobile devices.';
 $_MODULE['<{socialpower}prestashop>socialpower_f4b3903ae0f2fded748be8759d825839'] = 'Show on product pages';
 $_MODULE['<{socialpower}prestashop>socialpower_3746bcfe9d98ceecd2aa45b59b40460b'] = 'Display a share row under each product.';
 $_MODULE['<{socialpower}prestashop>socialpower_efbc98a8afe10f0fc49f81add46cf9b1'] = 'Show floating bar';
@@ -50,7 +53,6 @@ $_MODULE['<{socialpower}prestashop>socialpower_f1b899fadcbce8f00f423ca45effcfb1'
 $_MODULE['<{socialpower}prestashop>socialpower_16e4af47cd444fb9218db7f3f5e5686f'] = 'Display a small heading above the buttons.';
 $_MODULE['<{socialpower}prestashop>socialpower_526566380393d609591eb79c134084ff'] = 'X (Twitter) handle';
 $_MODULE['<{socialpower}prestashop>socialpower_18bb79a7cf70b1e504e42d273c24fd74'] = 'Optional. Your handle without @, e.g. megventure. Added to tweets as "via @handle".';
-$_MODULE['<{socialpower}prestashop>socialpower_8b9846fda088df14786534e2f3815260'] = 'Share button settings';
 $_MODULE['<{socialpower}prestashop>socialpower_c9cc8cce247e49bae79f15173ce97354'] = 'Save';
 $_MODULE['<{socialpower}prestashop>socialpower_93cba07454f06a4a960172bbd6e2a435'] = 'Yes';
 $_MODULE['<{socialpower}prestashop>socialpower_bafd7322c6e97d25b6299b5d6fe8920b'] = 'No';

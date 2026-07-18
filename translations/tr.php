@@ -18,7 +18,10 @@ $_MODULE['<{socialpower}prestashop>socialpower_5a95a425f74314a96f13a2f136992178'
 $_MODULE['<{socialpower}prestashop>socialpower_6d6db52799620de23c1e87d00abde8c4'] = 'Kopyalandı!';
 $_MODULE['<{socialpower}prestashop>socialpower_9a7e58ee13cb727cb7c4acc68f4cafe5'] = 'Ayarlar kaydedildi.';
 $_MODULE['<{socialpower}prestashop>socialpower_9139ec6f0890e320c49fb778a7a2e3b5'] = 'Ağlar';
-$_MODULE['<{socialpower}prestashop>socialpower_53ea61f665d02583b8779f9e4789b79c'] = 'Hangi paylaşım butonlarının görüneceğini seçin. "Bağlantıyı kopyala" sayfa adresini kopyalar; "Cihaz paylaşımı" telefonun yerleşik paylaşım penceresini açar ve yalnızca desteklenen mobil cihazlarda görünür.';
+$_MODULE['<{socialpower}prestashop>socialpower_308828dcc4010b637b5b6e0f592d22b9'] = 'Görünüm ve yerleşim';
+$_MODULE['<{socialpower}prestashop>socialpower_3919b2d578dba44c706e36dd24eca1f1'] = 'Cihaz paylaşımı (mobil)';
+$_MODULE['<{socialpower}prestashop>socialpower_d6b0659d2343e14c5c87b2b27960f801'] = 'Sayfa adresini panoya kopyalar.';
+$_MODULE['<{socialpower}prestashop>socialpower_76d658eedba92d71d6a34e44c7505e96'] = 'Cihazın yerleşik paylaşım penceresini açar. Yalnızca desteklenen mobil cihazlarda görünür.';
 $_MODULE['<{socialpower}prestashop>socialpower_f4b3903ae0f2fded748be8759d825839'] = 'Ürün sayfalarında göster';
 $_MODULE['<{socialpower}prestashop>socialpower_3746bcfe9d98ceecd2aa45b59b40460b'] = 'Her ürünün altında bir paylaşım satırı gösterir.';
 $_MODULE['<{socialpower}prestashop>socialpower_efbc98a8afe10f0fc49f81add46cf9b1'] = 'Yüzen çubuğu göster';
@@ -50,7 +53,6 @@ $_MODULE['<{socialpower}prestashop>socialpower_f1b899fadcbce8f00f423ca45effcfb1'
 $_MODULE['<{socialpower}prestashop>socialpower_16e4af47cd444fb9218db7f3f5e5686f'] = 'Butonların üstünde küçük bir başlık gösterir.';
 $_MODULE['<{socialpower}prestashop>socialpower_526566380393d609591eb79c134084ff'] = 'X (Twitter) kullanıcı adı';
 $_MODULE['<{socialpower}prestashop>socialpower_18bb79a7cf70b1e504e42d273c24fd74'] = 'İsteğe bağlı. @ olmadan kullanıcı adınız, örn. megventure. Gönderilere "via @kullaniciadi" olarak eklenir.';
-$_MODULE['<{socialpower}prestashop>socialpower_8b9846fda088df14786534e2f3815260'] = 'Paylaşım butonu ayarları';
 $_MODULE['<{socialpower}prestashop>socialpower_c9cc8cce247e49bae79f15173ce97354'] = 'Kaydet';
 $_MODULE['<{socialpower}prestashop>socialpower_93cba07454f06a4a960172bbd6e2a435'] = 'Evet';
 $_MODULE['<{socialpower}prestashop>socialpower_bafd7322c6e97d25b6299b5d6fe8920b'] = 'Hayır';

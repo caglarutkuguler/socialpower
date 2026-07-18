@@ -380,35 +380,80 @@ class Socialpower extends Module implements WidgetInterface
     protected function postProcess()
     {
         // Networks: rebuild the CSV from the posted per-network switches so the
-        // stored order always follows the canonical NETWORKS order.
+        // stored order always follows the canonical NETWORKS order. Each switch
+        // always posts 0 or 1; if none of them came through, the form did not
+        // render them, so leave the saved selection untouched rather than
+        // silently clearing every network.
         $selected = [];
+        $posted = false;
         foreach (self::NETWORKS as $key) {
-            if ((int) Tools::getValue('SP_NET_' . $key)) {
+            $value = Tools::getValue('SP_NET_' . $key, null);
+            if ($value === null) {
+                continue;
+            }
+            $posted = true;
+            if ((int) $value) {
                 $selected[] = $key;
             }
         }
-        Configuration::updateValue('SP_NETWORKS', implode(',', $selected));
-
-        foreach (['SP_SHOW_PRODUCT', 'SP_SHOW_FLOATING', 'SP_SHOW_LABEL', 'SP_SHOW_HEADING'] as $switch) {
-            Configuration::updateValue($switch, (int) (bool) Tools::getValue($switch));
+        if ($posted) {
+            Configuration::updateValue('SP_NETWORKS', implode(',', $selected));
         }
 
-        Configuration::updateValue('SP_FLOAT_POS', Tools::getValue('SP_FLOAT_POS') === 'right' ? 'right' : 'left');
-        Configuration::updateValue('SP_FLOAT_PAGES', Tools::getValue('SP_FLOAT_PAGES') === 'product' ? 'product' : 'all');
-        Configuration::updateValue('SP_STYLE', $this->oneOf(Tools::getValue('SP_STYLE'), ['solid', 'outline', 'minimal'], 'solid'));
-        Configuration::updateValue('SP_SHAPE', $this->oneOf(Tools::getValue('SP_SHAPE'), ['rounded', 'circle', 'square'], 'rounded'));
-        Configuration::updateValue('SP_SIZE', $this->oneOf(Tools::getValue('SP_SIZE'), ['s', 'm', 'l'], 'm'));
-        Configuration::updateValue('SP_COLOR', $this->oneOf(Tools::getValue('SP_COLOR'), ['brand', 'mono'], 'brand'));
+        foreach (['SP_SHOW_PRODUCT', 'SP_SHOW_FLOATING', 'SP_SHOW_LABEL', 'SP_SHOW_HEADING'] as $switch) {
+            $this->saveIfPosted($switch, function ($value) {
+                return (int) (bool) $value;
+            });
+        }
+
+        $this->saveIfPosted('SP_FLOAT_POS', function ($value) {
+            return $value === 'right' ? 'right' : 'left';
+        });
+        $this->saveIfPosted('SP_FLOAT_PAGES', function ($value) {
+            return $value === 'product' ? 'product' : 'all';
+        });
+
+        $enums = [
+            'SP_STYLE' => [['solid', 'outline', 'minimal'], 'solid'],
+            'SP_SHAPE' => [['rounded', 'circle', 'square'], 'rounded'],
+            'SP_SIZE' => [['s', 'm', 'l'], 'm'],
+            'SP_COLOR' => [['brand', 'mono'], 'brand'],
+        ];
+        foreach ($enums as $key => $rule) {
+            $module = $this;
+            $this->saveIfPosted($key, function ($value) use ($module, $rule) {
+                return $module->oneOf($value, $rule[0], $rule[1]);
+            });
+        }
 
         // X/Twitter handle: letters, digits and underscore only, no leading @.
-        $via = ltrim(trim((string) Tools::getValue('SP_X_VIA')), '@');
-        $via = preg_replace('/[^A-Za-z0-9_]/', '', $via);
-        Configuration::updateValue('SP_X_VIA', Tools::substr($via, 0, 15));
+        $this->saveIfPosted('SP_X_VIA', function ($value) {
+            $via = ltrim(trim((string) $value), '@');
+
+            return Tools::substr(preg_replace('/[^A-Za-z0-9_]/', '', $via), 0, 15);
+        });
 
         return $this->displayConfirmation($this->l('Settings saved.'));
     }
 
-    protected function oneOf($value, array $allowed, $default)
+    /**
+     * Persist a setting only when the request actually carried it.
+     *
+     * HelperForm can render each panel as its own form, so a save may post only
+     * part of the settings. Without this check the untouched panel would be
+     * silently reset to its default.
+     */
+    protected function saveIfPosted($key, $sanitize)
+    {
+        $raw = Tools::getValue($key, null);
+        if ($raw === null) {
+            return;
+        }
+
+        Configuration::updateValue($key, $sanitize($raw));
+    }
+
+    public function oneOf($value, array $allowed, $default)
     {
         return in_array($value, $allowed, true) ? $value : $default;
     }
@@ -439,28 +484,20 @@ class Socialpower extends Module implements WidgetInterface
 
     protected function renderForm()
     {
-        $networkValues = [];
+        // One Yes/No switch per network. HelperForm's "checkbox" type names its
+        // inputs inconsistently across PrestaShop versions (and posts nothing
+        // when unticked), so switches are used instead: they always post 0 or 1
+        // under a predictable SP_NET_<key> name.
+        $networkInputs = [];
         foreach ($this->getNetworkDefinitions() as $key => $def) {
-            $networkValues[] = [
-                'val' => $key,
-                'label' => $def['label'],
-            ];
+            $networkInputs[] = $this->switchInput(
+                'SP_NET_' . $key,
+                $this->networkFormLabel($key, $def),
+                $this->networkFormDesc($key)
+            );
         }
 
         $inputs = [];
-
-        // One checkbox group listing every network.
-        $inputs[] = [
-            'type' => 'checkbox',
-            'label' => $this->l('Networks'),
-            'name' => 'SP_NET',
-            'values' => [
-                'query' => $networkValues,
-                'id' => 'val',
-                'name' => 'label',
-            ],
-            'desc' => $this->l('Choose which share buttons appear. "Copy link" copies the page URL; "Native share" opens the built-in share sheet on the phone and only shows on supported mobile devices.'),
-        ];
 
         $inputs[] = $this->switchInput('SP_SHOW_PRODUCT', $this->l('Show on product pages'), $this->l('Display a share row under each product.'));
         $inputs[] = $this->switchInput('SP_SHOW_FLOATING', $this->l('Show floating bar'), $this->l('Pin a vertical share bar to the side of the screen.'));
@@ -531,11 +568,25 @@ class Socialpower extends Module implements WidgetInterface
             'col' => 3,
         ];
 
-        $fields_form = [
+        $networksForm = [
             'form' => [
                 'legend' => [
-                    'title' => $this->l('Share button settings'),
+                    'title' => $this->l('Networks'),
                     'icon' => 'icon-share',
+                ],
+                'input' => $networkInputs,
+                'submit' => [
+                    'title' => $this->l('Save'),
+                    'name' => 'submitSocialpower',
+                ],
+            ],
+        ];
+
+        $displayForm = [
+            'form' => [
+                'legend' => [
+                    'title' => $this->l('Appearance and placement'),
+                    'icon' => 'icon-cogs',
                 ],
                 'input' => $inputs,
                 'submit' => [
@@ -554,22 +605,56 @@ class Socialpower extends Module implements WidgetInterface
         $helper->default_form_language = (int) $this->context->language->id;
         $helper->fields_value = $this->getFormValues();
 
-        return $helper->generateForm([$fields_form]);
+        return $helper->generateForm([$networksForm, $displayForm]);
+    }
+
+    /**
+     * Form label for a network. The "native" button is labelled "Share" on the
+     * storefront, which would be ambiguous as a settings row.
+     */
+    protected function networkFormLabel($key, array $def)
+    {
+        if ($key === 'native') {
+            return $this->l('Native share (mobile)');
+        }
+
+        return $def['label'];
+    }
+
+    /**
+     * Extra guidance for the two non-obvious buttons.
+     */
+    protected function networkFormDesc($key)
+    {
+        if ($key === 'copy') {
+            return $this->l('Copies the page address to the clipboard.');
+        }
+
+        if ($key === 'native') {
+            return $this->l('Opens the built-in share sheet. Only appears on supported mobile devices.');
+        }
+
+        return '';
     }
 
     protected function switchInput($name, $label, $desc)
     {
-        return [
+        $input = [
             'type' => 'switch',
             'label' => $label,
             'name' => $name,
             'is_bool' => true,
-            'desc' => $desc,
             'values' => [
                 ['id' => $name . '_on', 'value' => 1, 'label' => $this->l('Yes')],
                 ['id' => $name . '_off', 'value' => 0, 'label' => $this->l('No')],
             ],
         ];
+
+        if ($desc !== '') {
+            $input['desc'] = $desc;
+        }
+
+        return $input;
     }
 
     protected function getFormValues()
@@ -588,15 +673,10 @@ class Socialpower extends Module implements WidgetInterface
             'SP_X_VIA' => Configuration::get('SP_X_VIA'),
         ];
 
-        // HelperForm's checkbox names each box "SP_NET_<key>" but tests the
-        // "checked" state against the nested array $fields_value['SP_NET'][key].
-        // Provide both shapes so the box is pre-checked on every PS version.
+        // One value per network switch, matching the SP_NET_<key> input names.
         $enabled = $this->getEnabledKeys();
-        $values['SP_NET'] = [];
         foreach (self::NETWORKS as $key) {
-            $on = in_array($key, $enabled, true) ? 1 : 0;
-            $values['SP_NET'][$key] = $on;
-            $values['SP_NET_' . $key] = $on;
+            $values['SP_NET_' . $key] = in_array($key, $enabled, true) ? 1 : 0;
         }
 
         return $values;
