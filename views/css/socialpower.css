@@ -1,19 +1,229 @@
-.cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
-* html .cf { zoom: 0; }
-*:first-child+html .cf { zoom: 1; }
+/**
+ * Social Share Buttons - Grow Traffic with One-Click Sharing
+ *
+ * @author    MEG Venture <info@megventure.com>
+ * @copyright 2019-2026 MEG Venture
+ * @license   Academic Free License 3.0 (AFL-3.0)
+ *
+ * No third-party assets: brand colors are set inline per button as --sp-brand,
+ * everything else is driven by the size / shape / style / color modifier
+ * classes the module adds to the .sp-share wrapper.
+ */
 
-.text p, .text li { font-size: 1em; line-height: 1.5em; margin: 0 0 0.5em 0; }
-.text li { margin: 0 0 0.25em 0; }
+.sp-share {
+    --sp-gap: 8px;
+    --sp-btn: 40px;
+    --sp-icon: 20px;
+    --sp-radius: 8px;
+    --sp-fg: #ffffff;
+    --sp-neutral: #55606e;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 18px 0;
+}
 
-.vhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+.sp-share .sp-heading {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    color: inherit;
+}
 
-.social-buttons { display: block; list-style: none; padding: 0; margin-top:20px; margin-bottom:10px;}
-.social-buttons > li { display: block; margin: 0; padding: 5px; float: left; }
-.social-top { display: block; margin-left: 10px ; margin-right: auto ;clear:both; height:100%;}
-.social-footer { display: block; margin-left: auto ; margin-right: auto ;}
-.social-left { display: block; margin-left: auto ; margin-right: auto ;width: 100% ;}
-.social-buttons-left { display: block; list-style: none; padding: 0; margin-top:0px; margin-bottom:0px;}
-.social-buttons-left > li { display: block; margin: 0; padding: 4px; float: left; }
-.social-buttons-right { display: block; list-style: none; padding: 0; margin-top:15px; margin-bottom:0px;}
-.social-buttons-right > li { display: block; margin: 0; padding: 3px; float: left; }
-.social-right { display: block; margin-left: auto ; margin-right: auto ;width: 430px ;}
+.sp-share .sp-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sp-share .sp-item {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* ---- The button ---- */
+.sp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: var(--sp-btn);
+    height: var(--sp-btn);
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: var(--sp-radius);
+    background: var(--sp-brand, var(--sp-neutral));
+    color: var(--sp-fg);
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease, background .12s ease, color .12s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.sp-btn:hover,
+.sp-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+    opacity: .95;
+    outline: none;
+}
+
+.sp-btn:active {
+    transform: translateY(0);
+}
+
+/* Clicks on the icon/label always resolve to the button itself. */
+.sp-btn > * {
+    pointer-events: none;
+}
+
+.sp-icon {
+    display: inline-flex;
+    width: var(--sp-icon);
+    height: var(--sp-icon);
+    flex: 0 0 auto;
+}
+
+.sp-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.sp-label {
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+/* ---- Labels: give the pill some horizontal room ---- */
+.sp-has-label .sp-btn {
+    padding: 0 14px;
+}
+
+/* ---- Sizes ---- */
+.sp-size-s { --sp-btn: 32px; --sp-icon: 16px; font-size: 13px; }
+.sp-size-m { --sp-btn: 40px; --sp-icon: 20px; }
+.sp-size-l { --sp-btn: 50px; --sp-icon: 24px; font-size: 15px; }
+
+/* ---- Shapes ---- */
+.sp-shape-rounded { --sp-radius: 8px; }
+.sp-shape-square  { --sp-radius: 0; }
+.sp-shape-circle  { --sp-radius: 999px; }
+.sp-shape-circle.sp-has-label .sp-btn { border-radius: 999px; }
+
+/* ---- Style: outline ---- */
+.sp-style-outline .sp-btn {
+    background: transparent;
+    border-color: var(--sp-brand, var(--sp-neutral));
+    color: var(--sp-brand, var(--sp-neutral));
+}
+.sp-style-outline .sp-btn:hover,
+.sp-style-outline .sp-btn:focus-visible {
+    background: var(--sp-brand, var(--sp-neutral));
+    color: var(--sp-fg);
+}
+
+/* ---- Style: minimal (bare icons, no chip) ---- */
+.sp-style-minimal .sp-btn {
+    background: transparent;
+    border-color: transparent;
+    color: var(--sp-brand, var(--sp-neutral));
+    height: auto;
+    min-width: 0;
+}
+.sp-style-minimal .sp-btn:hover,
+.sp-style-minimal .sp-btn:focus-visible {
+    background: transparent;
+    box-shadow: none;
+    opacity: .7;
+}
+
+/* ---- Neutral color mode: ignore brand colors ---- */
+.sp-color-mono .sp-btn { --sp-brand: var(--sp-neutral); }
+
+/* ---- Copied feedback ---- */
+.sp-btn.sp-copied {
+    position: relative;
+}
+.sp-btn.sp-copied::after {
+    content: attr(data-copied);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 6px);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    background: #1d2530;
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Native share button is hidden until JS confirms browser support. */
+.sp-btn--native { display: none; }
+.sp-native-ready .sp-btn--native { display: inline-flex; }
+
+/* ---- Floating bar ---- */
+.sp-share--floating {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9990;
+    margin: 0;
+}
+.sp-share--floating.sp-float-left  { left: 0; }
+.sp-share--floating.sp-float-right { right: 0; }
+
+.sp-share--floating .sp-list {
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .16);
+}
+.sp-share--floating.sp-float-left  .sp-list { border-radius: 0 10px 10px 0; }
+.sp-share--floating.sp-float-right .sp-list { border-radius: 10px 0 0 10px; }
+
+.sp-share--floating .sp-btn:hover,
+.sp-share--floating .sp-btn:focus-visible {
+    transform: none;
+    opacity: .9;
+}
+
+/* Keep the floating bar out of the way on small screens. */
+@media (max-width: 767px) {
+    .sp-share--floating .sp-list {
+        flex-direction: row;
+        top: auto;
+        bottom: 0;
+    }
+    .sp-share--floating {
+        top: auto;
+        bottom: 0;
+        transform: none;
+        left: 0;
+        right: 0;
+    }
+    .sp-share--floating .sp-list {
+        justify-content: center;
+        border-radius: 10px 10px 0 0;
+        background: rgba(255, 255, 255, .96);
+    }
+}
+
+/* ---- Dark theme storefronts ---- */
+@media (prefers-color-scheme: dark) {
+    .sp-share--floating .sp-list {
+        background: rgba(30, 34, 42, .94);
+    }
+    .sp-style-minimal .sp-btn { color: var(--sp-brand, #cbd3dd); }
+    .sp-color-mono .sp-btn { --sp-neutral: #cbd3dd; }
+}

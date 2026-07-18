@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
 	<name>socialpower</name>
-	<displayName><![CDATA[Social Buttons Pro]]></displayName>
-	<version><![CDATA[2.0.0]]></version>
-	<description><![CDATA[A professional social sharing module for Prestashop platforms.]]></description>
+	<displayName><![CDATA[Social Share Buttons - Grow Traffic with One-Click Sharing]]></displayName>
+	<version><![CDATA[3.0.0]]></version>
+	<description><![CDATA[Let shoppers share your products and pages on Facebook, X, WhatsApp, Pinterest, LinkedIn and more with one click. Lightweight share links load no third-party tracking scripts, so your store stays fast and GDPR-friendly.]]></description>
 	<author><![CDATA[MEG Venture]]></author>
 	<tab><![CDATA[front_office_features]]></tab>
 	<is_configurable>1</is_configurable>
