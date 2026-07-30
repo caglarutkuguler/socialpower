@@ -73,6 +73,10 @@ $_MODULE['<{socialpower}prestashop>f1f142733861e01f6e627c907e530c3c'] = 'Başka 
 $_MODULE['<{socialpower}prestashop>846f90c5bd4215670849848b416e6f68'] = 'veya modülü Konumlar sayfasından başka bir kanca üzerine taşıyın.';
 $_MODULE['<{socialpower}prestashop>dd08a6de2e26eff4a6b2a2f337b5e4e9'] = 'Konumlar sayfasını aç';
 
+// --- Backfilled missing keys (auto-sync)
+$_MODULE['<{socialpower}prestashop>socialpower_18bb79a7cf70b1e504e42d273c24fd74'] = 'İsteğe bağlı. @ olmadan tanıtıcınız, ör. büyük macera. Tweetlere "@handle aracılığıyla" olarak eklendi.';
+$_MODULE['<{socialpower}prestashop>socialpower_f1b899fadcbce8f00f423ca45effcfb1'] = '"Paylaş" başlığını göster';
+
 // --- Auto-regenerated below: keys include the template-basename source segment
 //     PrestaShop 1.7+ actually looks up (<{module}prestashop>{basename}_{hash}).
 //     The entries above this line use the old (pre-1.7, basename-less) key format

@@ -73,6 +73,10 @@ $_MODULE['<{socialpower}prestashop>f1f142733861e01f6e627c907e530c3c'] = 'En otro
 $_MODULE['<{socialpower}prestashop>846f90c5bd4215670849848b416e6f68'] = 'o traslada el módulo a otro hook desde la página Posiciones.';
 $_MODULE['<{socialpower}prestashop>dd08a6de2e26eff4a6b2a2f337b5e4e9'] = 'Abrir la página Posiciones';
 
+// --- Backfilled missing keys (auto-sync)
+$_MODULE['<{socialpower}prestashop>socialpower_18bb79a7cf70b1e504e42d273c24fd74'] = 'Opcional. Su identificador sin @, p.e. megaventura. Agregado a los tweets como "a través de @handle".';
+$_MODULE['<{socialpower}prestashop>socialpower_f1b899fadcbce8f00f423ca45effcfb1'] = 'Mostrar el encabezado "Compartir"';
+
 // --- Auto-regenerated below: keys include the template-basename source segment
 //     PrestaShop 1.7+ actually looks up (<{module}prestashop>{basename}_{hash}).
 //     The entries above this line use the old (pre-1.7, basename-less) key format

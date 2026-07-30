@@ -98,7 +98,7 @@ $_MODULE['<{socialpower}prestashop>configure_f90670e68c6c3770df468b520addb343'] 
 $_MODULE['<{socialpower}prestashop>socialpower_019a87095e0f8fb23958f05ec8ee3ec2'] = 'Button style';
 $_MODULE['<{socialpower}prestashop>socialpower_02129bb861061d1a052c592e2dc6b383'] = 'X';
 $_MODULE['<{socialpower}prestashop>socialpower_16e4af47cd444fb9218db7f3f5e5686f'] = 'Display a small heading above the buttons.';
-$_MODULE['<{socialpower}prestashop>socialpower_18bb79a7cf70b1e504e42d273c24fd74'] = 'Optional. Your handle without @, e.g. megventure. Added to tweets as \"via @handle\".';
+$_MODULE['<{socialpower}prestashop>socialpower_18bb79a7cf70b1e504e42d273c24fd74'] = 'Optional. Your handle without @, e.g. megventure. Added to tweets as "via @handle".';
 $_MODULE['<{socialpower}prestashop>socialpower_1b8c73ad61b87c54d378d7e05ec33f21'] = 'Show text labels';
 $_MODULE['<{socialpower}prestashop>socialpower_238ec94486bc42bdbf067a5a1e94dc12'] = 'Brand colors';
 $_MODULE['<{socialpower}prestashop>socialpower_2660064e68655415da2628c2ae2f7592'] = 'Small';
@@ -146,6 +146,6 @@ $_MODULE['<{socialpower}prestashop>socialpower_dddfc1567970f99029aa9eb52d5056af'
 $_MODULE['<{socialpower}prestashop>socialpower_e41480b6bbfbf7407974a88d3d34f4fa'] = 'Solid';
 $_MODULE['<{socialpower}prestashop>socialpower_e884c507c5198a4578a84498f7a323e2'] = 'LinkedIn';
 $_MODULE['<{socialpower}prestashop>socialpower_efbc98a8afe10f0fc49f81add46cf9b1'] = 'Show floating bar';
-$_MODULE['<{socialpower}prestashop>socialpower_f1b899fadcbce8f00f423ca45effcfb1'] = 'Show \"Share\" heading';
+$_MODULE['<{socialpower}prestashop>socialpower_f1b899fadcbce8f00f423ca45effcfb1'] = 'Show "Share" heading';
 $_MODULE['<{socialpower}prestashop>socialpower_f4b3903ae0f2fded748be8759d825839'] = 'Show on product pages';
 $_MODULE['<{socialpower}prestashop>socialpower_ffe61bebc32cf64ade7789514bd34f88'] = 'All pages';
