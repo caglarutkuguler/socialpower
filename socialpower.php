@@ -13,6 +13,19 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+/*
+ * WidgetInterface lived in the global namespace on PrestaShop 1.7.x
+ * (classes/module/WidgetInterface.php) and moved to
+ * PrestaShop\PrestaShop\Core\Module\WidgetInterface on newer core versions,
+ * with no global-namespace alias shipped. Resolve whichever one this shop
+ * actually has to the global name before the class declaration below needs it.
+ */
+if (!interface_exists('WidgetInterface', false)
+    && interface_exists('PrestaShop\\PrestaShop\\Core\\Module\\WidgetInterface')
+) {
+    class_alias('PrestaShop\\PrestaShop\\Core\\Module\\WidgetInterface', 'WidgetInterface');
+}
+
 class Socialpower extends Module implements WidgetInterface
 {
     /**
@@ -52,7 +65,7 @@ class Socialpower extends Module implements WidgetInterface
     {
         $this->name = 'socialpower';
         $this->tab = 'front_office_features';
-        $this->version = '3.0.0';
+        $this->version = '3.0.1';
         $this->author = 'MEG Venture';
         $this->module_key = 'a428eb0bed4543e61e8c8ddfc45122e7';
         $this->need_instance = 0;
