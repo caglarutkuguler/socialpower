@@ -381,13 +381,16 @@ class Socialpower extends Module implements WidgetInterface
 
     public function getContent()
     {
+        require_once _PS_MODULE_DIR_ . 'socialpower/classes/MegVentureAdsWidget.php';
+
         $output = '';
 
         if (Tools::isSubmit('submitSocialpower')) {
             $output .= $this->postProcess();
         }
 
-        return $output . $this->renderIntro() . $this->renderForm();
+        return $output . $this->renderIntro() . $this->renderForm()
+            . MegVentureAdsWidget::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
     protected function postProcess()
