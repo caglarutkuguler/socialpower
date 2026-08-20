@@ -173,4 +173,4 @@ database tables behind.
 
 ---
 
-© 2019–2026 MEG Venture. All rights reserved.
+© 2019–2026 MEG Venture & Consulting Ltd. — released under the MIT License.

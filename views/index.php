@@ -13,8 +13,8 @@
 * needs please refer to http://www.megventure.com for more information.
 *
 *  @author MEG Venture <info@megventure.com>
-*  @copyright  2007-2016 MEG Venture
-*  @license    Not a free license
+*  @copyright  2007-2016 MEG Venture & Consulting Ltd.
+*  @license    https://opensource.org/licenses/MIT MIT License
 *  International Registered Trademark & Property of MEG Venture
 */
 				    	

@@ -2,8 +2,8 @@
  * Social Share Buttons - Grow Traffic with One-Click Sharing
  *
  * @author    MEG Venture <info@megventure.com>
- * @copyright 2019-2026 MEG Venture
- * @license   Academic Free License 3.0 (AFL-3.0)
+ * @copyright 2019-2026 MEG Venture & Consulting Ltd.
+ * @license   https://opensource.org/licenses/MIT MIT License
  *}
 <div class="sp-share sp-share--{$sp.mode|escape:'html':'UTF-8'} sp-style-{$sp.style|escape:'html':'UTF-8'} sp-shape-{$sp.shape|escape:'html':'UTF-8'} sp-size-{$sp.size|escape:'html':'UTF-8'} sp-color-{$sp.color|escape:'html':'UTF-8'}{if $sp.show_label} sp-has-label{/if}{if $sp.mode == 'floating'} sp-float-{$sp.float_pos|escape:'html':'UTF-8'}{/if}"
      data-url="{$sp.url|escape:'html':'UTF-8'}"
