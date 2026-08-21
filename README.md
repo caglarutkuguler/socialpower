@@ -11,6 +11,8 @@ free word-of-mouth promoter.
 
 ---
 
+**Installable zip:** the archive GitHub generates on the releases page is a source snapshot, not an installable module — PrestaShop rejects it because the folder inside carries the version number. Download the ready-to-install zip from [megventure.com](https://megventure.com/en/free-modules/21-prestashop-social-share-buttons-no-third-party-scripts-8691246272928.html).
+
 ## Why this module
 
 Every share sends your product link to a new audience for free. More shares mean
