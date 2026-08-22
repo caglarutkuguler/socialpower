@@ -149,3 +149,7 @@ $_MODULE['<{socialpower}prestashop>socialpower_efbc98a8afe10f0fc49f81add46cf9b1'
 $_MODULE['<{socialpower}prestashop>socialpower_f1b899fadcbce8f00f423ca45effcfb1'] = 'Show "Share" heading';
 $_MODULE['<{socialpower}prestashop>socialpower_f4b3903ae0f2fded748be8759d825839'] = 'Show on product pages';
 $_MODULE['<{socialpower}prestashop>socialpower_ffe61bebc32cf64ade7789514bd34f88'] = 'All pages';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_c980491d2b999421c4aa1ef4449323e1'] = 'Happy with this module? A short review helps other merchants find it.';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_6ecbf3c5ab7a06f08c526f02bce2b2d6'] = 'Leave a review';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_8ad4303b83a62fb6ca3b025bad5bc114'] = 'No thanks';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_4d170dcb0d03a0efa011c9193219bb68'] = 'Okay, we will not ask again.';

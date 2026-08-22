@@ -151,3 +151,7 @@ $_MODULE['<{socialpower}prestashop>socialpower_e884c507c5198a4578a84498f7a323e2'
 $_MODULE['<{socialpower}prestashop>socialpower_efbc98a8afe10f0fc49f81add46cf9b1'] = 'Yüzen çubuğu göster';
 $_MODULE['<{socialpower}prestashop>socialpower_f4b3903ae0f2fded748be8759d825839'] = 'Ürün sayfalarında göster';
 $_MODULE['<{socialpower}prestashop>socialpower_ffe61bebc32cf64ade7789514bd34f88'] = 'Tüm sayfalar';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_c980491d2b999421c4aa1ef4449323e1'] = 'Bu modülden memnun musunuz? Kısa bir değerlendirme, diğer mağaza sahiplerinin bu modülü bulmasına yardımcı olur.';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_6ecbf3c5ab7a06f08c526f02bce2b2d6'] = 'Değerlendirme yazın';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_8ad4303b83a62fb6ca3b025bad5bc114'] = 'Hayır, teşekkürler';
+$_MODULE['<{socialpower}prestashop>megventurereviewnudge_4d170dcb0d03a0efa011c9193219bb68'] = 'Tamam, bir daha sormayacağız.';

@@ -65,7 +65,7 @@ class Socialpower extends Module implements WidgetInterface
     {
         $this->name = 'socialpower';
         $this->tab = 'front_office_features';
-        $this->version = '3.0.1';
+        $this->version = '3.1.0';
         $this->author = 'MEG Venture';
         $this->module_key = 'a428eb0bed4543e61e8c8ddfc45122e7';
         $this->need_instance = 0;
@@ -82,6 +82,8 @@ class Socialpower extends Module implements WidgetInterface
 
     public function install()
     {
+        require_once dirname(__FILE__) . '/classes/MegVentureReviewNudge.php';
+
         if (!parent::install()
             || !$this->registerHook('actionFrontControllerSetMedia')
             || !$this->registerHook('displayFooterProduct')
@@ -94,11 +96,14 @@ class Socialpower extends Module implements WidgetInterface
             Configuration::updateValue($key, $value);
         }
 
-        return true;
+        return MegVentureReviewNudge::onInstall();
     }
 
     public function uninstall()
     {
+        require_once dirname(__FILE__) . '/classes/MegVentureReviewNudge.php';
+        MegVentureReviewNudge::onUninstall();
+
         foreach (array_keys(self::SETTINGS) as $key) {
             Configuration::deleteByName($key);
         }
@@ -382,6 +387,16 @@ class Socialpower extends Module implements WidgetInterface
     public function getContent()
     {
         require_once _PS_MODULE_DIR_ . 'socialpower/classes/MegVentureAdsWidget.php';
+        require_once _PS_MODULE_DIR_ . 'socialpower/classes/MegVentureReviewNudge.php';
+
+        // May redirect (review click) — before anything renders on purpose.
+        // Concatenated configure URL on purpose: getAdminLink()'s $params
+        // argument does not exist on the oldest supported cores.
+        $nudge = MegVentureReviewNudge::handleRequest($this)
+            . MegVentureReviewNudge::render(
+                $this,
+                $this->context->link->getAdminLink('AdminModules', true) . '&configure=' . $this->name
+            );
 
         $output = '';
 
@@ -389,7 +404,7 @@ class Socialpower extends Module implements WidgetInterface
             $output .= $this->postProcess();
         }
 
-        return $output . $this->renderIntro() . $this->renderForm()
+        return $nudge . $output . $this->renderIntro() . $this->renderForm()
             . MegVentureAdsWidget::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
