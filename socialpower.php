@@ -65,7 +65,7 @@ class Socialpower extends Module implements WidgetInterface
     {
         $this->name = 'socialpower';
         $this->tab = 'front_office_features';
-        $this->version = '3.1.0';
+        $this->version = '3.1.1';
         $this->author = 'MEG Venture';
         $this->module_key = 'a428eb0bed4543e61e8c8ddfc45122e7';
         $this->need_instance = 0;
@@ -96,13 +96,13 @@ class Socialpower extends Module implements WidgetInterface
             Configuration::updateValue($key, $value);
         }
 
-        return MegVentureReviewNudge::onInstall();
+        return SocialpowerReviewNudge::onInstall();
     }
 
     public function uninstall()
     {
         require_once dirname(__FILE__) . '/classes/MegVentureReviewNudge.php';
-        MegVentureReviewNudge::onUninstall();
+        SocialpowerReviewNudge::onUninstall();
 
         foreach (array_keys(self::SETTINGS) as $key) {
             Configuration::deleteByName($key);
@@ -392,8 +392,8 @@ class Socialpower extends Module implements WidgetInterface
         // May redirect (review click) — before anything renders on purpose.
         // Concatenated configure URL on purpose: getAdminLink()'s $params
         // argument does not exist on the oldest supported cores.
-        $nudge = MegVentureReviewNudge::handleRequest($this)
-            . MegVentureReviewNudge::render(
+        $nudge = SocialpowerReviewNudge::handleRequest($this)
+            . SocialpowerReviewNudge::render(
                 $this,
                 $this->context->link->getAdminLink('AdminModules', true) . '&configure=' . $this->name
             );

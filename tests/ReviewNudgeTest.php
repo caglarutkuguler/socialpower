@@ -85,32 +85,32 @@ $configureUrl = 'index.php?controller=AdminModules&configure=socialpower';
 $fake = new FakeNudgeModule('tr');
 
 echo "1) Keys carry the module prefix, URL is this module's own review form\n";
-$keys = MegVentureReviewNudge::configurationKeys();
+$keys = SocialpowerReviewNudge::configurationKeys();
 ok(count($keys) === 3, 'exactly three configuration keys');
 $unprefixed = array_filter($keys, function ($k) { return strpos($k, 'SP_') !== 0; });
 ok($unprefixed === [], 'all three carry the SP_ prefix (' . implode(', ', $keys) . ')');
-ok(MegVentureReviewNudge::REVIEW_URL === 'https://megventure.com/{lang}/testimonials/write?id_product=21',
+ok(SocialpowerReviewNudge::REVIEW_URL === 'https://megventure.com/{lang}/testimonials/write?id_product=21',
    'REVIEW_URL targets product id 21 on megventure.com');
 
 echo "\n2) Fresh timestamp: hidden on day 0\n";
 Configuration::$store = [];
-ok(MegVentureReviewNudge::onInstall(), 'onInstall() succeeds');
+ok(SocialpowerReviewNudge::onInstall(), 'onInstall() succeeds');
 $installedAt = (int) Configuration::get('SP_REVIEW_INSTALLED_AT');
 ok($installedAt > 0 && abs(time() - $installedAt) < 5, 'onInstall() wrote the installed-at timestamp');
-ok(!MegVentureReviewNudge::shouldDisplay(), 'hidden on the day of install');
-ok(MegVentureReviewNudge::render($fake, $configureUrl) === '', 'render() returns nothing on day 0');
+ok(!SocialpowerReviewNudge::shouldDisplay(), 'hidden on the day of install');
+ok(SocialpowerReviewNudge::render($fake, $configureUrl) === '', 'render() returns nothing on day 0');
 ok((int) Configuration::get('SP_REVIEW_DISPLAYS') === 0, 'a hidden page view does not count as a display');
 
 echo "\n3) Quiet period: day 20 hidden, day 21 shown\n";
 Configuration::$store['SP_REVIEW_INSTALLED_AT'] = (string) (time() - 20 * DAY);
-ok(!MegVentureReviewNudge::shouldDisplay(), 'day 20: hidden');
+ok(!SocialpowerReviewNudge::shouldDisplay(), 'day 20: hidden');
 Configuration::$store['SP_REVIEW_INSTALLED_AT'] = (string) (time() - 21 * DAY);
-ok(MegVentureReviewNudge::shouldDisplay(), 'day 21: shown');
+ok(SocialpowerReviewNudge::shouldDisplay(), 'day 21: shown');
 Configuration::$store['SP_REVIEW_INSTALLED_AT'] = (string) (time() - 100 * DAY);
-ok(MegVentureReviewNudge::shouldDisplay(), 'day 100, never answered: still shown');
+ok(SocialpowerReviewNudge::shouldDisplay(), 'day 100, never answered: still shown');
 
 echo "\n4) The line itself\n";
-$html = MegVentureReviewNudge::render($fake, $configureUrl);
+$html = SocialpowerReviewNudge::render($fake, $configureUrl);
 ok(strpos($html, 'Happy with this module?') !== false, 'render() contains the request text');
 ok(strpos($html, 'sp_review_go=1') !== false, 'render() contains the review link');
 ok(strpos($html, 'sp_review_dismiss=1') !== false, 'render() contains the dismiss link');
@@ -119,40 +119,40 @@ ok((int) Configuration::get('SP_REVIEW_DISPLAYS') === 1, 'the view was counted')
 
 echo "\n5) Three unanswered displays, hidden on the fourth\n";
 Configuration::$store['SP_REVIEW_DISPLAYS'] = '0';
-ok(MegVentureReviewNudge::render($fake, $configureUrl) !== '', 'display 1 shown');
-ok(MegVentureReviewNudge::render($fake, $configureUrl) !== '', 'display 2 shown');
-ok(MegVentureReviewNudge::render($fake, $configureUrl) !== '', 'display 3 shown');
-ok(MegVentureReviewNudge::render($fake, $configureUrl) === '', 'display 4: given up');
+ok(SocialpowerReviewNudge::render($fake, $configureUrl) !== '', 'display 1 shown');
+ok(SocialpowerReviewNudge::render($fake, $configureUrl) !== '', 'display 2 shown');
+ok(SocialpowerReviewNudge::render($fake, $configureUrl) !== '', 'display 3 shown');
+ok(SocialpowerReviewNudge::render($fake, $configureUrl) === '', 'display 4: given up');
 ok((int) Configuration::get('SP_REVIEW_DISPLAYS') === 3, 'counter stopped at 3');
 
 echo "\n6) A form-POST re-render is shown but not counted\n";
 Configuration::$store['SP_REVIEW_DISPLAYS'] = '1';
 $_POST['submitModuleSettings'] = '1';
-ok(MegVentureReviewNudge::render($fake, $configureUrl) !== '', 'still shown while saving settings');
+ok(SocialpowerReviewNudge::render($fake, $configureUrl) !== '', 'still shown while saving settings');
 ok((int) Configuration::get('SP_REVIEW_DISPLAYS') === 1, 'but the save re-render did not burn a display');
 $_POST = [];
 
 echo "\n7) Dismissed: hidden forever\n";
 Configuration::$store['SP_REVIEW_DISPLAYS'] = '0';
 Tools::$values = ['sp_review_dismiss' => '1'];
-$banner = MegVentureReviewNudge::handleRequest($fake);
+$banner = SocialpowerReviewNudge::handleRequest($fake);
 Tools::$values = [];
 ok(strpos($banner, 'we will not ask again') !== false, 'dismiss answers with a confirmation');
 ok((int) Configuration::get('SP_REVIEW_DISMISSED') === 1, 'dismissed flag written');
-ok(!MegVentureReviewNudge::shouldDisplay(), 'hidden right after dismissing');
+ok(!SocialpowerReviewNudge::shouldDisplay(), 'hidden right after dismissing');
 Configuration::$store['SP_REVIEW_INSTALLED_AT'] = (string) (time() - 365 * DAY);
-ok(!MegVentureReviewNudge::shouldDisplay(), 'hidden a year later too');
+ok(!SocialpowerReviewNudge::shouldDisplay(), 'hidden a year later too');
 
 echo "\n8) Review link clicked: recorded, redirected, hidden forever\n";
 Configuration::$store = ['SP_REVIEW_INSTALLED_AT' => (string) (time() - 30 * DAY)];
 Tools::$redirectedTo = null;
 Tools::$values = ['sp_review_go' => '1'];
-MegVentureReviewNudge::handleRequest($fake);
+SocialpowerReviewNudge::handleRequest($fake);
 Tools::$values = [];
 ok(Tools::$redirectedTo === 'https://megventure.com/tr/testimonials/write?id_product=21',
    'redirected to the review form in the BO language (' . Tools::$redirectedTo . ')');
-ok(!MegVentureReviewNudge::shouldDisplay(), 'never shown again after the click');
-ok(MegVentureReviewNudge::reviewUrl('xx') === 'https://megventure.com/en/testimonials/write?id_product=21',
+ok(!SocialpowerReviewNudge::shouldDisplay(), 'never shown again after the click');
+ok(SocialpowerReviewNudge::reviewUrl('xx') === 'https://megventure.com/en/testimonials/write?id_product=21',
    'a language megventure.com does not serve falls back to en');
 
 echo "\n9) Upgrade path: no timestamp -> gets one, not shown immediately\n";
@@ -161,7 +161,7 @@ Configuration::$store = ['SP_OTHER' => '1']; // a 3.0.x shop: no review keys at 
 ok(upgrade_module_3_1_0(null) === true, 'upgrade script succeeds');
 $stamp = (int) Configuration::get('SP_REVIEW_INSTALLED_AT');
 ok($stamp > 0 && abs(time() - $stamp) < 5, 'missing timestamp was written with the current time');
-ok(!MegVentureReviewNudge::shouldDisplay(), 'not shown immediately after upgrading');
+ok(!SocialpowerReviewNudge::shouldDisplay(), 'not shown immediately after upgrading');
 Configuration::$store['SP_REVIEW_INSTALLED_AT'] = '12345';
 upgrade_module_3_1_0(null);
 ok(Configuration::get('SP_REVIEW_INSTALLED_AT') === '12345', 'an existing timestamp is never overwritten');
@@ -175,7 +175,7 @@ Configuration::$store = [
     'theme' => 'another-modules-value',
     'MEGTESTIMONIAL_WHO' => 'another-modules-value',
 ];
-MegVentureReviewNudge::onUninstall();
+SocialpowerReviewNudge::onUninstall();
 $reviewLeft = array_filter(array_keys(Configuration::$store), function ($k) { return strpos($k, 'SP_REVIEW_') === 0; });
 ok($reviewLeft === [], 'onUninstall() removed all three review keys');
 ok(Configuration::get('SP_OTHER') === 'tok', 'the module\'s other keys were left for the module');
@@ -184,10 +184,10 @@ ok(Configuration::get('MEGTESTIMONIAL_WHO') === 'another-modules-value', 'anothe
 
 echo "\n11) Wiring: the module file actually calls the nudge\n";
 $src = (string) file_get_contents(dirname(__DIR__) . '/socialpower.php');
-ok(strpos($src, 'MegVentureReviewNudge::onInstall()') !== false, 'install() calls onInstall()');
-ok(strpos($src, 'MegVentureReviewNudge::onUninstall()') !== false, 'uninstall() calls onUninstall()');
-ok(strpos($src, 'MegVentureReviewNudge::handleRequest($this)') !== false, 'getContent() routes the two links');
-ok(strpos($src, 'MegVentureReviewNudge::render(') !== false, 'getContent() renders the line');
+ok(strpos($src, 'SocialpowerReviewNudge::onInstall()') !== false, 'install() calls onInstall()');
+ok(strpos($src, 'SocialpowerReviewNudge::onUninstall()') !== false, 'uninstall() calls onUninstall()');
+ok(strpos($src, 'SocialpowerReviewNudge::handleRequest($this)') !== false, 'getContent() routes the two links');
+ok(strpos($src, 'SocialpowerReviewNudge::render(') !== false, 'getContent() renders the line');
 ok(is_file(dirname(__DIR__) . '/upgrade/upgrade-3.1.0.php'), 'upgrade-3.1.0.php ships');
 
 echo "\n" . ($fail === 0 ? "OK - all passed\n" : "$fail test(s) FAILED\n");

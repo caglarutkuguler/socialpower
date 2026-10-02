@@ -10,7 +10,7 @@ if (!defined('_PS_VERSION_')) {
 
 /**
  * ============================================================================
- *  MegVentureReviewNudge — drop-in review-request line for the configuration
+ *  SocialpowerReviewNudge — drop-in review-request line for the configuration
  *  page of MEG Venture modules.
  *
  *  A single line asking the merchant to leave a review, shown only on this
@@ -38,11 +38,11 @@ if (!defined('_PS_VERSION_')) {
  *     drifts (memory/addons-review-link.md). A REVIEW_URL without a {lang}
  *     placeholder passes through reviewUrl() untouched, so it is a
  *     one-line change either way.
- *  3. In install():    MegVentureReviewNudge::onInstall()
- *     In uninstall():  MegVentureReviewNudge::onUninstall()
- *     In getContent(): $out = MegVentureReviewNudge::handleRequest($this)
- *                           . MegVentureReviewNudge::render($this, $configureUrl);
- *     In upgrade-X.Y.Z.php: MegVentureReviewNudge::ensureInstalledAt()
+ *  3. In install():    SocialpowerReviewNudge::onInstall()
+ *     In uninstall():  SocialpowerReviewNudge::onUninstall()
+ *     In getContent(): $out = SocialpowerReviewNudge::handleRequest($this)
+ *                           . SocialpowerReviewNudge::render($this, $configureUrl);
+ *     In upgrade-X.Y.Z.php: SocialpowerReviewNudge::ensureInstalledAt()
  *     (existing installs have no install date; this starts their clock at
  *     the upgrade instead).
  *  4. Add the four strings below to translations/<iso>.php with the source
@@ -51,7 +51,12 @@ if (!defined('_PS_VERSION_')) {
  *     quote-escaped source string.
  *  -----------------------------------------------------------------------
  */
-class MegVentureReviewNudge
+// The class name carries the module name on purpose. Every MEG Venture module
+// ships its own copy of this file with its own constants, and PHP has a single
+// class table: with a shared name, the second copy loaded in one request dies
+// with "Cannot declare class", which the module manager reports as
+// "Could not perform action upgrade for module undefined".
+class SocialpowerReviewNudge
 {
     /* Everything module-specific lives in these four constants. */
     const CONFIG_PREFIX = 'SP_';

@@ -23,5 +23,5 @@ function upgrade_module_3_1_0($module)
 {
     require_once dirname(__FILE__) . '/../classes/MegVentureReviewNudge.php';
 
-    return MegVentureReviewNudge::ensureInstalledAt();
+    return SocialpowerReviewNudge::ensureInstalledAt();
 }
