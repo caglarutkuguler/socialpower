@@ -405,7 +405,7 @@ class Socialpower extends Module implements WidgetInterface
         }
 
         return $nudge . $output . $this->renderIntro() . $this->renderForm()
-            . MegVentureAdsWidget::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
+            . MegVentureAdsWidgetV2::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
     protected function postProcess()
