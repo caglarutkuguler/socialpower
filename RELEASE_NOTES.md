@@ -2,6 +2,11 @@
 
 _Only customer-relevant changes are listed. Internal refactoring, tests and housekeeping are omitted._
 
+## 3.1.2
+
+### New
+- The configuration page links to the free MEG Venture Updates module, which installs updates for this module in one click. The line is hidden once that module is installed
+
 ## 3.1.0
 
 ### New
