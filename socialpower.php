@@ -65,7 +65,7 @@ class Socialpower extends Module implements WidgetInterface
     {
         $this->name = 'socialpower';
         $this->tab = 'front_office_features';
-        $this->version = '3.1.1';
+        $this->version = '3.1.2';
         $this->author = 'MEG Venture';
         $this->module_key = 'a428eb0bed4543e61e8c8ddfc45122e7';
         $this->need_instance = 0;
@@ -384,6 +384,29 @@ class Socialpower extends Module implements WidgetInterface
      * Configuration page
      * ------------------------------------------------------------------- */
 
+    /**
+     * One line pointing to the free MEG Venture Updates module, shown on the
+     * configuration page until that module is installed. A static link only:
+     * nothing is requested from megventure.com.
+     */
+    private function renderMvuNotice()
+    {
+        if (Module::isInstalled('megventureupdates')) {
+            return '';
+        }
+        $iso = Tools::strtolower((string) $this->context->language->iso_code);
+        if (!in_array($iso, array('en', 'tr', 'fr', 'es', 'de', 'it', 'nl', 'pl', 'pt'), true)) {
+            $iso = 'en';
+        }
+        $this->context->smarty->assign(array(
+            'mvu_notice_text' => $this->l('Get updates for this module in one click: install the free MEG Venture Updates module.'),
+            'mvu_notice_link' => $this->l('How it works'),
+            'mvu_notice_url' => 'https://megventure.com/' . $iso . '/content/17-module-updates',
+        ));
+
+        return $this->display(__FILE__, 'views/templates/admin/mvu_notice.tpl');
+    }
+
     public function getContent()
     {
         require_once _PS_MODULE_DIR_ . 'socialpower/classes/MegVentureAdsWidget.php';
@@ -405,7 +428,7 @@ class Socialpower extends Module implements WidgetInterface
         }
 
         return $nudge . $output . $this->renderIntro() . $this->renderForm()
-            . MegVentureAdsWidgetV2::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
+            . $this->renderMvuNotice() . MegVentureAdsWidgetV2::render('https://megventure.com/index.php?fc=module&module=virtualproductcombination&controller=adswidget');
     }
 
     protected function postProcess()

@@ -155,3 +155,5 @@ $_MODULE['<{socialpower}prestashop>megventurereviewnudge_c980491d2b999421c4aa1ef
 $_MODULE['<{socialpower}prestashop>megventurereviewnudge_6ecbf3c5ab7a06f08c526f02bce2b2d6'] = 'Zostaw recenzję';
 $_MODULE['<{socialpower}prestashop>megventurereviewnudge_8ad4303b83a62fb6ca3b025bad5bc114'] = 'Nie, dziękuję';
 $_MODULE['<{socialpower}prestashop>megventurereviewnudge_4d170dcb0d03a0efa011c9193219bb68'] = 'Dobrze, nie zapytamy ponownie.';
+$_MODULE['<{socialpower}prestashop>socialpower_2831420e2c343c00fc80bb8b4634e559'] = 'Aktualizuj ten moduł jednym kliknięciem: zainstaluj darmowy moduł MEG Venture Updates.';
+$_MODULE['<{socialpower}prestashop>socialpower_9ffdb95250e26c7a6b468126ac7c75b0'] = 'Jak to działa';
