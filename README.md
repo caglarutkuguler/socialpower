@@ -6,7 +6,7 @@ Telegram, Reddit and email with a single click — turning every shopper into a
 free word-of-mouth promoter.
 
 - **Module technical name:** `socialpower`
-- **Version:** 3.1.1
+- **Version:** 3.1.2
 - **Author:** MEG Venture
 
 ---
